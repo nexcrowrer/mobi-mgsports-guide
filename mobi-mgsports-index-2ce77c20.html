@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>满冠体育 – 从稳定出发，让运动更有据可依</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(145deg, #fbe9d7 0%, #f7d6b1 40%, #f0c7a0 100%);
+      font-family: 'Segoe UI', Roboto, 'Noto Sans TC', system-ui, -apple-system, sans-serif;
+      line-height: 1.65;
+      color: #2c2419;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1.2rem;
+    }
+
+    /* 杂志式卡片容器 */
+    .magazine {
+      max-width: 1080px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    /* 英雄区 – 暖色渐变 + 隐约纹理 */
+    .hero {
+      background: linear-gradient(135deg, #e8c9ac 0%, #dbaa7e 70%, #cf9a6b 100%);
+      padding: 3rem 2rem;
+      border-radius: 48px 48px 32px 32px;
+      box-shadow: 0 12px 28px rgba(130, 80, 40, 0.12), inset 0 1px 0 rgba(255, 235, 210, 0.4);
+      margin-bottom: 2.2rem;
+      position: relative;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: radial-gradient(circle at 20% 40%, rgba(255, 220, 180, 0.18) 0%, transparent 60%);
+      pointer-events: none;
+      border-radius: inherit;
+    }
+
+    .hero h1 {
+      font-size: 2.8rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: #2e1c0c;
+      text-shadow: 0 2px 4px rgba(200, 130, 60, 0.15);
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero .sub {
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: #4f321c;
+      max-width: 620px;
+      margin-top: 0.6rem;
+      line-height: 1.6;
+      background: rgba(255, 245, 230, 0.4);
+      backdrop-filter: blur(2px);
+      padding: 0.75rem 1.2rem;
+      border-radius: 60px;
+      display: inline-block;
+      border: 1px solid rgba(240, 200, 160, 0.45);
+      position: relative;
+      z-index: 1;
+    }
+
+    /* 白色内容卡片 – 圆角柔和 */
+    .card-white {
+      background: #fffcf8;
+      border-radius: 32px;
+      padding: 2.2rem 2.4rem;
+      box-shadow: 0 8px 24px rgba(120, 70, 30, 0.06), 0 2px 6px rgba(0, 0, 0, 0.02);
+      margin-bottom: 2rem;
+      transition: box-shadow 0.2s;
+      border: 1px solid rgba(235, 210, 185, 0.3);
+    }
+
+    .card-white:hover {
+      box-shadow: 0 12px 32px rgba(100, 60, 25, 0.08);
+    }
+
+    .card-white h2 {
+      font-size: 1.8rem;
+      font-weight: 500;
+      color: #543a24;
+      margin-bottom: 1rem;
+      letter-spacing: -0.01em;
+      border-left: 6px solid #d5976b;
+      padding-left: 1rem;
+    }
+
+    .card-white h3 {
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: #6b4a31;
+      margin: 1.4rem 0 0.6rem;
+    }
+
+    .card-white p {
+      margin-bottom: 1rem;
+      color: #3a2d21;
+      font-size: 1rem;
+    }
+
+    .card-white p:last-child {
+      margin-bottom: 0;
+    }
+
+    .tag-line {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem 0.8rem;
+      margin: 1rem 0 0.4rem;
+    }
+
+    .tag {
+      background: #efe1d2;
+      color: #4d3622;
+      padding: 0.2rem 0.9rem;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+    }
+
+    /* 圆角按钮感链接 – 嵌入句子的a标记特殊样式 */
+    .inline-link {
+      color: #bd7a4d;
+      font-weight: 600;
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      background: linear-gradient(to right, #f0dac8, #f0dac8) no-repeat left bottom;
+      background-size: 0% 2px;
+      transition: background-size 0.25s, color 0.15s;
+      padding: 0 0.12rem;
+      border-radius: 20px;
+      background: transparent;
+      position: relative;
+    }
+
+    .inline-link::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -2px;
+      width: 100%;
+      height: 2px;
+      background: #d5976b;
+      opacity: 0.5;
+      transition: opacity 0.2s, height 0.15s;
+    }
+
+    .inline-link:hover {
+      color: #9b633c;
+    }
+
+    .inline-link:hover::after {
+      opacity: 1;
+      height: 3px;
+      background: #b0764a;
+    }
+
+    /* 独立的圆角链接卡片（不是a标签文本，仅装饰） */
+    .action-block {
+      margin-top: 2rem;
+      background: #f3e5d8;
+      border-radius: 60px;
+      padding: 1rem 2rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      backdrop-filter: blur(2px);
+      border: 1px solid rgba(200, 160, 120, 0.2);
+    }
+
+    /* 页尾 */
+    .footer-note {
+      text-align: center;
+      padding: 2rem 1rem 0.5rem;
+      color: #5a4532;
+      font-size: 0.9rem;
+      border-top: 1px solid rgba(180, 140, 100, 0.15);
+      margin-top: 2rem;
+      width: 100%;
+    }
+
+    .footer-note a {
+      color: #7b5539;
+      text-decoration: none;
+      border-bottom: 1px dotted #b58b6a;
+    }
+
+    .footer-note a:hover {
+      color: #4f321c;
+      border-bottom: 1px solid #7b5539;
+    }
+
+    /* 响应式细节 */
+    @media (max-width: 680px) {
+      body {
+        padding: 1rem 0.8rem;
+      }
+
+      .hero {
+        padding: 2rem 1.2rem;
+        border-radius: 32px;
+      }
+
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .hero .sub {
+        font-size: 0.95rem;
+        padding: 0.5rem 1rem;
+      }
+
+      .card-white {
+        padding: 1.6rem 1.2rem;
+        border-radius: 24px;
+      }
+
+      .card-white h2 {
+        font-size: 1.4rem;
+        padding-left: 0.8rem;
+      }
+
+      .tag-line {
+        gap: 0.3rem 0.6rem;
+      }
+    }
+
+    @media (max-width: 460px) {
+      .hero h1 {
+        font-size: 1.6rem;
+      }
+
+      .card-white {
+        padding: 1.2rem 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="magazine">
+
+    <!-- 首页横幅 / HERO -->
+    <header class="hero">
+      <h1>满冠体育</h1>
+      <div class="sub">运动入口的确定性 · 从稳定界面到内容纵深</div>
+    </header>
+
+    <!-- 背景说明 + 第一段自然介绍 -->
+    <section class="card-white">
+      <h2>为什么需要稳定的运动入口</h2>
+      <p>
+        无论是个人训练记录、团队赛事管理，还是运动数据的长期追踪，一个可靠且结构清晰的信息起点越来越关键。许多运动类平台侧重功能堆叠，却忽略了界面本身的「可读性」与「路径感」——用户花在寻找功能上的精力，往往超过实际使用。<strong>满冠体育</strong>在规划之初就将「入口的确定性」作为基础原则：每一级页面都保持一致的导航逻辑，减少认知负担，让运动者更专注于内容本身。
+      </p>
+      <div class="tag-line">
+        <span class="tag">界面一致性</span>
+        <span class="tag">路径清晰</span>
+        <span class="tag">低干扰结构</span>
+      </div>
+    </section>
+
+    <!-- 三段自然介绍之第二段：页面说明与场景展开 -->
+    <section class="card-white">
+      <h2>从场景理解页面功能</h2>
+      <p>
+        运动管理的场景往往在碎片时间中发生：训练间歇、通勤途中、赛前检录。如果页面加载慢或信息层级混乱，用户很容易流失。针对这一现实，<a href="https://mobi-mgsports.com" class="inline-link">满冠体育</a>采用轻量化布局，核心操作（查看日程、记录成绩、浏览运动百科）均可在两次点击内完成。首页作为信息中枢，整合了近期活动摘要、动态通知以及常用工具入口，但每一区块都保留充足的留白，避免信息过载。
+      </p>
+      <h3>模块之间的自然过渡</h3>
+      <p>
+        我们测试了若干种内容聚合方式，最终选择「卡片 + 线性流」的混合模式：重要通知以横幅置顶，常规内容按时间或类别纵向排列，同时允许横向滚动查看推荐运动项目。这种模式兼顾了移动端单手操作和桌面端浏览的舒适度，也是当前信息密度与视觉节奏之间较平衡的解法。
+      </p>
+    </section>
+
+    <!-- 第三段自然介绍 + FAQ摘要风格 -->
+    <section class="card-white">
+      <h2>常见问题摘要 & 设计思路</h2>
+      <p>
+        <strong>Q：页面变更频繁吗？</strong><br>
+        主页结构每季度微调一次，内容模块（如训练百科、赛事日历）保持扩展接口，但不会突然改变用户已熟悉的核心路径。<br><br>
+        <strong>Q：如何保证不同设备上的体验？</strong><br>
+        自适配断点覆盖 320px–1440px 宽度，字体与间距使用相对单位，按钮区域不小于 44px。尤其关注运动场景下的单手操作区域，底部导航与常用动作按钮均位于拇指热区。<br><br>
+        <strong>Q：运动数据的安全性？</strong><br>
+        所有传输均采用 TLS 加密，本地缓存数据支持按需清除。平台不会将个人运动记录用于未被授权的分析或推荐。
+      </p>
+      <div style="margin-top: 1.2rem; font-style: italic; color: #5e4530; border-left: 3px solid #dbaa7e; padding-left: 1rem;">
+        以上说明仅代表当前版本的设计立场，具体功能以 <a href="https://mobi-mgsports.com" class="inline-link">满冠体育</a> 实际页面为准。
+      </div>
+    </section>
+
+    <!-- 页尾访问提示 (不包含点击/进入等词) -->
+    <footer class="footer-note">
+      <p>
+        如果你正在寻找一个界面稳定、内容聚焦的运动信息站点，不妨将 <a href="https://mobi-mgsports.com">满冠体育</a> 加入书签。日常训练与赛事管理，值得一个更清爽的起点。
+      </p>
+      <p style="margin-top: 0.8rem; font-size: 0.8rem; opacity: 0.7;">
+        杂志专题式介绍 · 暖色基调 · 版本迭代标识 13
+      </p>
+    </footer>
+  </div>
+</body>
+</html>
