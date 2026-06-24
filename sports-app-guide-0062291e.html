@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>爱游戏 · 体育数据深度阅读</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: #f1f6f8;
+            color: #1a2c3a;
+            line-height: 1.6;
+        }
+
+        .wrapper {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* hero — 杂志封面式横幅 */
+        .hero {
+            background: linear-gradient(145deg, #0a2e38 0%, #144a57 70%, #1c6b7a 100%);
+            margin: 24px 0 32px;
+            border-radius: 32px;
+            padding: 3.2rem 2.4rem;
+            color: #e6f3f5;
+            box-shadow: 0 12px 28px rgba(8, 48, 56, 0.25);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: -60px;
+            right: -60px;
+            width: 260px;
+            height: 260px;
+            background: radial-gradient(circle, rgba(60, 194, 194, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .hero-text {
+            max-width: 80%;
+        }
+
+        .hero h1 {
+            font-size: 2.6rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            line-height: 1.15;
+            margin-bottom: 1rem;
+        }
+
+        .hero .sub {
+            font-size: 1.2rem;
+            font-weight: 350;
+            opacity: 0.88;
+            margin-bottom: 0.2rem;
+        }
+
+        .hero .meta-tag {
+            display: inline-block;
+            margin-top: 1.4rem;
+            background: rgba(255, 255, 255, 0.10);
+            backdrop-filter: blur(2px);
+            padding: 6px 18px;
+            border-radius: 60px;
+            font-size: 0.85rem;
+            border: 1px solid rgba(200, 235, 235, 0.25);
+            color: #d2ecec;
+        }
+
+        /* 背景说明卡片 */
+        .context-card {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 2.2rem 2rem;
+            margin: 28px 0 32px;
+            border-left: 6px solid #1f8a8c;
+            box-shadow: 0 4px 12px rgba(0, 20, 20, 0.04);
+        }
+
+        .context-card h2 {
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: #14555c;
+            margin-bottom: 1.1rem;
+        }
+
+        .context-card p {
+            color: #2b4a52;
+            margin-bottom: 1rem;
+        }
+
+        .context-card p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* 三段自然介绍 —— 网格卡片（杂志式） */
+        .insight-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin: 36px 0 48px;
+        }
+
+        .insight-card {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 1.8rem 1.6rem 2.2rem;
+            box-shadow: 0 4px 14px rgba(10, 55, 60, 0.04);
+            transition: transform 0.2s ease, box-shadow 0.2s;
+            border: 1px solid #ddecee;
+        }
+
+        .insight-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 14px 28px rgba(8, 64, 72, 0.08);
+            border-color: #9acccf;
+        }
+
+        .insight-card .emoji-deco {
+            font-size: 2rem;
+            display: inline-block;
+            margin-bottom: 0.4rem;
+        }
+
+        .insight-card h3 {
+            font-size: 1.2rem;
+            font-weight: 550;
+            color: #11555e;
+            margin: 0.4rem 0 0.6rem;
+        }
+
+        .insight-card p {
+            color: #2d5059;
+            font-size: 0.95rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .insight-card .stat-note {
+            background: #ecf6f7;
+            border-radius: 40px;
+            padding: 4px 16px;
+            display: inline-block;
+            font-size: 0.75rem;
+            color: #14646b;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
+
+        /* 场景速查 + 延伸阅读摘要 (FAQ风格) */
+        .quick-look {
+            background: #e1f0f2;
+            border-radius: 28px;
+            padding: 2.4rem 2rem;
+            margin: 18px 0 28px;
+        }
+
+        .quick-look h2 {
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: #004d59;
+            margin-bottom: 0.8rem;
+        }
+
+        .quick-look-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px 28px;
+            margin-top: 16px;
+        }
+
+        .look-item {
+            background: white;
+            border-radius: 20px;
+            padding: 1rem 1.4rem 1.2rem;
+            box-shadow: 0 2px 8px rgba(12, 60, 64, 0.04);
+        }
+
+        .look-item .label {
+            font-weight: 550;
+            color: #105b64;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .look-item p {
+            font-size: 0.9rem;
+            color: #2f4c54;
+        }
+
+        .look-item .link-snippet {
+            margin-top: 8px;
+            font-size: 0.85rem;
+        }
+
+        /* 页尾访问提示 */
+        .page-footer {
+            margin: 48px 0 32px;
+            padding: 1.8rem 2rem 2rem;
+            background: #ffffff;
+            border-radius: 30px;
+            border-top: 1px solid #b7d9dd;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(12, 52, 60, 0.02);
+        }
+
+        .page-footer p {
+            color: #1f4953;
+            font-size: 0.98rem;
+            max-width: 600px;
+            margin: 0 auto 0.8rem;
+        }
+
+        .page-footer .footer-link-sentence {
+            font-size: 1.06rem;
+            background: #e3f1f3;
+            display: inline-block;
+            padding: 0.5rem 1.8rem;
+            border-radius: 60px;
+            color: #003c45;
+        }
+
+        a {
+            color: #127a80;
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.15s;
+        }
+
+        a:hover {
+            border-bottom-color: #0f8f94;
+            color: #095b61;
+        }
+
+        .page-footer a {
+            border-bottom: 1px solid #0f8288;
+        }
+
+        /* 响应式 */
+        @media (max-width: 760px) {
+            .hero-text {
+                max-width: 100%;
+            }
+            .hero h1 {
+                font-size: 1.9rem;
+            }
+            .insight-grid {
+                grid-template-columns: 1fr;
+                gap: 18px;
+            }
+            .quick-look-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            .hero {
+                padding: 2rem 1.6rem;
+                border-radius: 24px;
+            }
+            .context-card {
+                padding: 1.8rem 1.2rem;
+            }
+            .quick-look {
+                padding: 1.8rem 1.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.6rem;
+            }
+            .wrapper {
+                padding: 0 14px;
+            }
+            .insight-card {
+                padding: 1.4rem 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+
+        <!-- 首页横幅 hero -->
+        <div class="hero">
+            <div class="hero-text">
+                <div class="sub">⚡ 体育数据 · 对照与延伸</div>
+                <h1>爱游戏 · 信息密度<br>从日常查询开始</h1>
+                <div class="meta-tag">📰 专题 · 赛事检索 · 深度比照</div>
+            </div>
+        </div>
+
+        <!-- 背景说明 -->
+        <div class="context-card">
+            <h2>📋 为什么需要对照与延伸阅读</h2>
+            <p>
+                日常体育查询往往止步于比分和积分榜。但真正有价值的判断，往往来自对多个来源的交叉参考、历史数据的对照以及上下文延伸。<strong>爱游戏</strong> 所构建的信息方式，正是围绕这种需求：把赛事数据、球队动态与背景说明组织为结构化专题，方便快速摄取要点，再决定是否深入。
+            </p>
+            <p>
+                本专题页从一个具体切面展开：当你想了解一场比赛在联赛中的真实位置，或是某位球员近五场的状态曲线，集中呈现的摘要卡片能节省大量筛选时间。“延伸阅读”模块则提供相关交锋记录、战术笔记或近期新闻链接，帮助你在浏览中自然建立更完整的图景。
+            </p>
+        </div>
+
+        <!-- 三段自然介绍（网格卡片） -->
+        <div class="insight-grid">
+            <div class="insight-card">
+                <div class="emoji-deco">🔎</div>
+                <h3>日常对照</h3>
+                <p>同时查看两至三组联赛数据、主客场倾向及近期走势，无需切换多个标签页。卡片内直接呈现差异项，例如控球率 vs 射正转化率，一眼定位关键偏差。</p>
+                <span class="stat-note">典型场景：赛前准备 / 复盘对比</span>
+            </div>
+            <div class="insight-card">
+                <div class="emoji-deco">🧩</div>
+                <h3>延伸阅读摘要</h3>
+                <p>每项数据卡片下方自动关联背景说明：球队近五场类似对手的表现、核心球员伤停影响、以及同轮次其他场次的关键事件。延伸内容以折叠摘要形式呈现，不打断主流程。</p>
+                <span class="stat-note">典型场景：深度研究 / 战术分析</span>
+            </div>
+            <div class="insight-card">
+                <div class="emoji-deco">📊</div>
+                <h3>结构化参考</h3>
+                <p>用统一的指标框架（如预期进球、防守强度、节奏指数）组织所有专题，方便跨赛事对照。无论是五大联赛还是次级联赛，同一套维度让延伸阅读更有连续性。</p>
+                <span class="stat-note">典型场景：跨联赛比较 / 趋势观察</span>
+            </div>
+        </div>
+
+        <!-- 场景速查 + FAQ 摘要 (quick-look) -->
+        <div class="quick-look">
+            <h2>⏱ 常见查询场景 · 速览</h2>
+            <div class="quick-look-grid">
+                <div class="look-item">
+                    <div class="label"><span>📆</span> 赛前背景</div>
+                    <p>快速查看两队过去六次交手记录、近期平均控球率及教练战术调整。延伸阅读提供相关视频分析摘要。</p>
+                    <div class="link-snippet">→ 参考：<a href="https://sports-app-igame.com">爱游戏</a> 专题内对照工具</div>
+                </div>
+                <div class="look-item">
+                    <div class="label"><span>📈</span> 状态曲线</div>
+                    <p>球员或球队近十场表现趋势（进球、评分、关键传威胁球数）。延伸阅读附带对手强度校正说明。</p>
+                    <div class="link-snippet">→ 延伸：<a href="https://sports-app-igame.com">爱游戏</a> 趋势页面</div>
+                </div>
+                <div class="look-item">
+                    <div class="label"><span>🔄</span> 赛果对比</div>
+                    <p>同轮次多场比赛同时对照：比分、控球、射门、红黄牌。延伸阅读加入战术板摘要。</p>
+                    <div class="link-snippet">→ 更多：<a href="https://sports-app-igame.com">爱游戏</a> 对照模式</div>
+                </div>
+                <div class="look-item">
+                    <div class="label"><span>📚</span> 联赛资料库</div>
+                    <p>积分榜、射手榜、助攻榜及赛程日历。延伸阅读提供各家媒体评分汇总与球队简报。</p>
+                    <div class="link-snippet">→ 入口：<a href="https://sports-app-igame.com">爱游戏</a> 资料页</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 页尾访问提示 -->
+        <div class="page-footer">
+            <p>以上专题结构展示了从日常查询到延伸阅读的完整逻辑。若需要更丰富的维度、更精细的数据对照以及持续更新的背景说明，欢迎使用 <a href="https://sports-app-igame.com">爱游戏</a> 进行探索。</p>
+            <div class="footer-link-sentence">
+                ⚡ 跳转至 <a href="https://sports-app-igame.com">爱游戏</a>  · 数据专题
+            </div>
+            <p style="margin-top: 1.2rem; font-size: 0.8rem; opacity: 0.6;">简洁专业 · 信息密度优先</p>
+        </div>
+
+    </div>
+</body>
+</html>
